@@ -2,7 +2,6 @@
 
 (define (domain pest_infestation)
 
-;remove requirements that are not needed
 (:requirements :strips :fluents :typing :negative-preconditions)
 
 (:types 

@@ -12,4 +12,9 @@ Design choices made:
 
 Problem files: 
     - Problem 1: localized infection. One infested plot and simple treat. 
+    Design choices: 
+        - Chosen to only have three plots to illustrate the localized infection. 
+        p1 - p2 - p3
+        - p3 is infested and all plots are suspected (partial knowlegde). robot starts in p1.
+        note: planner never actually consider inspect-and-finds-healthy because it knows p3 is infested (limitation of partial knowlegde).
     - Problem 2: multiple plots threathed. Now chose to set iinfested and suspected at start or have timed-initial infested -> which means plot gets infested at a spesific time, if not treated.
