@@ -1,4 +1,4 @@
-(define (problem localized_problem) (:domain pest_infestation)
+(define (problem localized_problem) (:domain pest_infestation_Q1)
 (:objects 
     r - robot
     p1 p2 p3 - plot

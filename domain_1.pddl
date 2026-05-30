@@ -1,8 +1,8 @@
 ;;; Agricultural Robotics - Pest Infection Spread
 
-(define (domain pest_infestation)
+(define (domain pest_infestation_Q1)
 
-(:requirements :strips :fluents :typing :negative-preconditions)
+(:requirements :strips :fluents :typing :negative-preconditions )
 
 (:types 
     plot robot
@@ -87,7 +87,7 @@
     )
 )
 
-(:action report-infested
+(:action report-treated
     :parameters (?r - robot ?p - plot)
     :precondition (and 
         (at ?r ?p)
