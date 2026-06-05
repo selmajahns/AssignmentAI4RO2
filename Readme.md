@@ -26,7 +26,7 @@ Actions:
 
 ---
 
-### Problem 1:
+## Problem 1:
 Modelling localized infestation. One infested plot and simple treat.
 p3 starts infested and robot starts at p1.
 
@@ -40,7 +40,7 @@ Design choices:
 
 ---
 
-### Problem 2:
+## Problem 2:
 Modelling multiple plots threatened. Two plots infested at start: p2 and p3.
 
 
@@ -93,7 +93,7 @@ Same plot states as Q1 but with being-treated added, set by the start-treat acti
 
 ---
 
-### Problem 1:
+## Problem 1:
 Early intervention success. Robot must reach and treat p3 before spread reaches critical plot p5.
 
 
@@ -110,7 +110,7 @@ Design choices:
 
 ---
 
-### Problem 2:
+## Problem 2:
 Delayed intervention causes additional work. Same layout as Problem 1 but p4 starts with pressure 0.4, representing pre-existing spread pressure building before the robot arrives.
 
 
@@ -126,15 +126,15 @@ Design choices:
 
 
 
-### Discussion
+## Discussion
 
-# Modelling propagation processes over graphs
+### Modelling propagation processes over graphs
 Infestation spread is modelled through explicit adjacency declarations, only plots that are directly connected can spread infestation to each other. This means graph topology directly determines which plots are important. Plot like p3 in Q1 Problem 2 is adjacent to multiple plots simultaneously, making it a bottleneck that protect several neighbors at once. Plots like p1 and p4 only threaten one neighbor, making them lower priority. In Q1, spread cannot be modelled dynamically. A spread action could be added to the domain, but the planner would never choose it since spreading infestation contradicts the goal. Forcing the planner to apply it would be equivalent to simply setting plots as infested in the initial state. Spread is therefore approximated through the initial state, representing infestation that occurred before the robot arrived. Q2 models spread more intuitively through a continuous process that increases pressure on all adjacent plots at 0.2 per time unit. When pressure reaches 1, the get-infested event fires and that plot's neighbors immediately begin accumulating pressure too, creating a cascade. For this to be meaningful, time must genuinely pass during the plan which is why movement and treatment are modelled as processes with events rather than instantaneous actions. Without this, all actions would execute at t=0 and spread would never be a real threat. Durative actions could have achieved similar timing effects, but ENHSP does not support mixing durative actions with processes and events.
 
-# Trade-offs between local treatment and global containment
+### Trade-offs between local treatment and global containment
 Local treatment means addressing the nearest or most immediately infested plot. Global containment means prioritizing plots that protect the largest area of the field. These two are not always aligned, and limited capacity forces the robot to choose between them. In Q1 Problem 1, local and global treatment coincide there is only one infested plot, so treating it is both the local and global optimal choice. In Q1 Problem 2, the robot skips p2 which is the closest infested plot and treats p3 instead, because p3 is the bottleneck adjacent to the critical plot p5. This is global containment over local treatment. However, the planner does not reason globally in any general sense. It chooses p3 because the goal explicitly requires (not (infested p5)), and treating p3 is the only way to satisfy that constraint given capacity 1. Goal structure encodes global priorities, and the planner satisfies them. Capacity is central to this trade-off. With capacity 1, the robot must make a meaningful choice. With capacity 2, it would treat both p2 and p3, eliminating the prioritization decision entirely. Resource constraints are therefore what make containment strategy interesting and necessary. In Q2 Problem 2, the same tension appears. The planner treats p4 before p3 despite p3 being the original outbreak, because p4 is adjacent to the critical plot p5. Intervention order matters as much as intervention choice.
 
-# Limitations of representing biological spread with deterministic processes
+### Limitations of representing biological spread with deterministic processes
 Real pest infestation spread is influenced by many factors, for example wind, soil conditions, pest species, temperature, and crop density. None of which are captured in this model. Several specific limitations are worth noting.
 First, spread rate is uniform across all plots and all time steps. In reality, spread from a heavily infested plot would be faster than from a lightly infested one, and environmental conditions would cause variation between neighboring plots.
 Second, the fixed infestation threshold of 1.0 means all plots behave identically. A more realistic model would allow different plots to have different thresholds meaning some crops are more resistant than others. Similarly, treatment time is fixed regardless of how infested a plot is. A severely infested plot realistically takes longer to treat than a lightly pressured one.
