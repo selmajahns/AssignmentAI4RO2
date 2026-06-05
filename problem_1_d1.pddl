@@ -4,6 +4,8 @@
     p1 p2 p3 - plot
 )
 
+; p1 — p2 — p3 
+
 (:init
     (adjacent p1 p2)
     (adjacent p2 p1)

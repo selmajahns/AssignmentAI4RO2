@@ -84,6 +84,7 @@
         (treated ?p)
         (not(infested ?p))
         (decrease (capacity ?r) 1)
+        (healthy ?p)
     )
 )
 
