@@ -140,3 +140,7 @@ First, spread rate is uniform across all plots and all time steps. In reality, s
 Second, the fixed infestation threshold of 1.0 means all plots behave identically. A more realistic model would allow different plots to have different thresholds meaning some crops are more resistant than others. Similarly, treatment time is fixed regardless of how infested a plot is. A severely infested plot realistically takes longer to treat than a lightly pressured one.
 Third, the model is entirely deterministic. Given the same initial state, the outcome is always identical. Real biological spread is probabilistic. A plot adjacent to an infested neighbor may or may not become infested depending on conditions that are difficult to predict. A more faithful model would require probabilistic planning or stochastic processes, which are beyond the scope of PDDL+.
 Finally, the model assumes the robot's knowledge of the field is complete once inspection has occurred. In reality, infestation can develop in previously healthy plots between inspections, requiring repeated surveying. Which is a dynamic feature that is only partially captured in Q2 through the suspected predicate being reset after recovery.
+
+
+## Observation
+The submitted codes and report have been thoroughly reviewed by the teaching assistant, Omar Kashmar.
